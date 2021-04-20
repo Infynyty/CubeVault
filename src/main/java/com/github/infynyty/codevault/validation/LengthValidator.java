@@ -6,13 +6,14 @@ public class LengthValidator extends Validator{
     private static final int DEFAULT_MIN_SAFE_LENGTH = 16;
     private static final int DEFAULT_MIN_VERY_SAFE_LENGTH = 24;
 
-    protected LengthValidator(final String password) {
+    public LengthValidator(final String password) {
         super(password);
     }
 
     @Override
     public Validity validate() {
         final int length = password.length();
+        if (length > MAX_LENGTH) return Validity.INVALID;
         if (length < DEFAULT_MIN_SUFFICIENT_LENGTH) return Validity.UNSAFE;
         if (length < DEFAULT_MIN_SAFE_LENGTH) return Validity.SUFFICIENT;
         if (length < DEFAULT_MIN_VERY_SAFE_LENGTH) return Validity.SAFE;
